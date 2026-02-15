@@ -7,8 +7,6 @@ app = FastAPI()
 
 notes_db = []
 
-
-#TODO tags is Optional it needs to be created empty list instead of None I guess
 class NoteCreate(BaseModel):
     title: str
     content: str
@@ -22,8 +20,8 @@ class Note(NoteCreate):
 
 
 @app.get("/notes", response_model=List[Note])
-def get_all_notes():
-    return notes_db
+def get_all_notes(skip: int = 0, limit: int = 10):
+    return notes_db[skip : skip + limit]
 
 @app.post("/notes", status_code=201, response_model=Note)
 def create_note(note: NoteCreate):
