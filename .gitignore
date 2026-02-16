@@ -1,9 +1,6 @@
-
-# Virtual Environment
-venv/
 .venv/
-
-
-# Cache
 __pycache__/
 *.pyc
+.env
+.idea/
+.vscode/
