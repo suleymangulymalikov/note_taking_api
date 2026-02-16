@@ -55,17 +55,30 @@ notes_db: list[Note] = [
 ]
 
 @app.get("/notes", response_model=List[Note])
-def get_all_notes(skip: int = Query(0, ge=0), limit: int = Query(10, ge=1, le=100), tag: Optional[str] = None):
+def get_all_notes(skip: int = Query(0, ge=0), limit: int = Query(10, ge=1, le=100), tag: Optional[str] = None, search: Optional[str] = None):
     filtered_notes = notes_db
     
+    # Filter by Tag
     if tag is not None:
-        temp = []
+        tag_filtered = []
 
         for note in filtered_notes:
             if note.tags and tag in note.tags:
-                temp.append(note)
-        
-        filtered_notes = temp 
+                tag_filtered.append(note)
+
+        filtered_notes = tag_filtered 
+
+    # Filter by search
+    if search:
+        search = search.strip().lower()
+        if search:
+            search_filtered = []
+            for note in filtered_notes:
+                if search in note.title.lower() or search in note.content.lower():
+                    search_filtered.append(note)
+
+            filtered_notes = search_filtered
+
         
     return filtered_notes[skip : skip + limit]
 
