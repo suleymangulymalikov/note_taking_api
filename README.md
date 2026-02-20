@@ -132,3 +132,9 @@ The original dataset remains unchanged during read operations.
 
 - In-memory storage is used (no database).
 - Project is structured for easy extension and scalability.
+
+## 🎥 Preview
+
+https://github.com/user-attachments/assets/a61ec43d-fbc1-4155-ae64-215a4a5c6ebf
+
+
